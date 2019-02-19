@@ -1,8 +1,8 @@
 const https = require("https");
 
 
-//GET teams
-const getTeams = async (req, res) => {
+//GET games
+const getGames = async (req, res) => {
 
     try {
         https.get('https://www.balldontlie.io/api/v1/teams', (resp) => {
@@ -31,5 +31,5 @@ const getTeams = async (req, res) => {
 
 
 
-exports.getTeams = getTeams;
+exports.getGames = getGames;
 

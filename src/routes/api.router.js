@@ -1,8 +1,11 @@
 'use strict';
 const express = require('express');
 
+
 const router = express.Router();
-const apiCemeteryController = require('../controllers/api.teams.controller');
+const apiTeamsController = require('../controllers/api.teams.controller');
+const apiGamesController = require('../controllers/api.games.controller');
+
 
 
 const bodyParser = require('body-parser');
@@ -16,7 +19,10 @@ router.use(function (req, res, next) {
 });
 
 router.route('/teams')
-    .get(apiCemeteryController.getTeams)
+    .get(apiTeamsController.getTeams)
+
+router.route('/games')
+    .get(apiGamesController.getGames)
 
 
 module.exports = router;

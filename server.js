@@ -3,6 +3,7 @@ const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser'); 
 const dotenv = require('dotenv')
+const helmet = require('helmet');
 
 const cors = require('cors');
 
@@ -10,6 +11,8 @@ dotenv.config();
 // Get our API routes
 const api = require('./src/routes/api.router');
 const app = express();
+
+app.use(helmet())
 
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -22,7 +25,6 @@ app.use('/api', api);
 app.use((req, res, next) => {
 	const err = new Error('Not Found');
 	err.status = 404;
-	logger.error(`Request Error ${req.url} - ${err.status}`)
 	next(err);
 });
 
