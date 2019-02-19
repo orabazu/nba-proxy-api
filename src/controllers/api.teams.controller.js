@@ -5,7 +5,7 @@ const https = require("https");
 const getTeams = async (req, res) => {
 
     try {
-        https.get('https://www.balldontlie.io/api/v1/teams', (resp) => {
+        await https.get('https://www.balldontlie.io/api/v1/teams', (resp) => {
             let data = '';
 
             resp.on('data', (chunk) => {
