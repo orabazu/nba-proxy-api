@@ -3,7 +3,8 @@ const https = require('https');
 // GET games
 const getPlayers = async (req, res) => {
   try {
-    await https.get('https://www.balldontlie.io/api/v1/players', (resp) => {
+    const page = req.query.page ? req.query.page : '2';
+    await https.get(`https://www.balldontlie.io/api/v1/players?per_page=24&page=${page}`, (resp) => {
       let data = '';
 
       resp.on('data', (chunk) => {
@@ -11,20 +12,20 @@ const getPlayers = async (req, res) => {
       });
 
       resp.on('end', () => {
-        console.log(JSON.parse(data));
-        let withSource = JSON.parse(data).data.map((player) => {
-          const img_name = player.first_name.toLowerCase();
-          const img_surname = player.last_name.toLowerCase();
+        const withSource = JSON.parse(data).data.map((player) => {
+          const playerName = player.first_name.toLowerCase();
+          const playerSurname = player.last_name.toLowerCase();
+          const teamName = player.team.full_name.split(' ').join('_');
           return {
             ...player,
-            img_src: `https://s3.amazonaws.com/nba8bit/teams/Cleveland_Cavaliers/${img_name}_${img_surname}.png`,
+            img_src: `https://s3.amazonaws.com/nba8bit/teams/${teamName}/8bit/${playerName}_${playerSurname}_8bit.png`,
           };
         });
 
         const result = JSON.stringify(withSource);
         res.status(200).json({
           status: 'success',
-          withSource,
+          data: result,
         });
       });
     });
