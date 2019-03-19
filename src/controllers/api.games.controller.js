@@ -3,7 +3,7 @@ const https = require('https');
 // GET games
 const getGames = async (req, res) => {
   try {
-    await https.get('https://www.balldontlie.io/api/v1/games', (resp) => {
+    await https.get('https://www.balldontlie.io/api/v1/games?dates[]=2019-02-01&dates[]=2019-02-26', (resp) => {
       let data = '';
 
       resp.on('data', (chunk) => {
