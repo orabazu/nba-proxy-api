@@ -1,21 +1,12 @@
-const https = require('https');
 
+const data = require('./../services/games.service');
 
 // GET teams
 const getTeams = async (req, res) => {
   try {
-    await https.get('https://www.balldontlie.io/api/v1/teams', (resp) => {
-      let data = '';
-
-      resp.on('data', (chunk) => {
-        data += chunk;
-      });
-      resp.on('end', () => {
-        res.status(200).json({
-          status: 'success',
-          data,
-        });
-      });
+    res.status(200).json({
+      status: 'success',
+      data,
     });
   } catch (err) {
     res.status(400).json({
